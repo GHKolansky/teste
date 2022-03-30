@@ -16,6 +16,7 @@
             height: 400px;
         }
     </style>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     <div style="display:flex">
@@ -35,10 +36,12 @@
         const context = screen.getContext('2d')
         renderScreen(screen, game, requestAnimationFrame)
 
-        game.addPlayer({playerId:'player1',playerX:0,playerY:0})
-        game.addPlayer({playerId:'player2',playerX:9,playerY:9})
-        game.addFruit({fruitId:'fruit1',fruitX:5,fruitY:8})
-        game.addFruit({fruitId:'fruit2',fruitX:6,fruitY:5})
+        const socket = io()
+        
+        socket.on('connect',() => {
+            const playerId = socket.id
+            console.log(`Player conectado no cliente com o id: ${playerId}`)
+        })
     </script>
 </body>
 </html>
