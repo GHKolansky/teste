@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto 01</title>
+
+    <style>
+        #screen{
+            border: 10px solid #CCC;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div style="display:flex">
+        <canvas id="screen" width="10" height="10"></canvas>
+        <pre id="jsonGame"></pre>
+    </div>
+    <script type="module">
+        import createGame from './game.js'
+        import createKeyboardListener from './keyboard_listener.js'
+        import renderScreen from './render_screen.js'
+
+        const game = createGame()
+        const keyboardListener = createKeyboardListener(document)
+        keyboardListener.subscribe(game.movePlayer)
+
+        const screen = document.getElementById('screen')
+        const context = screen.getContext('2d')
+        renderScreen(screen, game, requestAnimationFrame)
+
+        game.addPlayer({playerId:'player1',playerX:0,playerY:0})
+        game.addPlayer({playerId:'player2',playerX:9,playerY:9})
+        game.addFruit({fruitId:'fruit1',fruitX:5,fruitY:8})
+        game.addFruit({fruitId:'fruit2',fruitX:6,fruitY:5})
+    </script>
+</body>
+</html>
